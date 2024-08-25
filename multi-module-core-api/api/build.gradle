@@ -1,0 +1,35 @@
+plugins {
+    id 'java-library'
+}
+
+group = 'by.sakuuj.ct2'
+version = '1.0'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation project(":core")
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+jar {
+    manifest {
+        attributes("Main-Class": "by.sakuuj.ct2.App")
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+tasks.named("jar").configure {
+    dependsOn(":core:jar")
+}
+
+test {
+    useJUnitPlatform()
+}
+

@@ -1,0 +1,3 @@
+rootProject.name = 'ct2'
+includeBuild('string-utils')
+includeBuild('multi-module-core-api')
